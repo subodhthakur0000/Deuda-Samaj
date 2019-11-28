@@ -11,14 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/admin', function () {
-    return view('cd-admin.admin');
-});
 
+
+
+// Backend
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware'=> 'auth'] , function(){
+
+Route::get('/logout','HomeController@logout');
+Route::get('/viewadmin','HomeController@viewadmin');
+Route::get('/addadmin', 'HomeController@addadmin');
+Route::post('/storeadmin', 'HomeController@storeadmin');
+Route::DELETE('/deleteadmin/{id}', 'HomeController@deleteadmin');
 
 //About
  Route::get('/abouts','AboutController@index');
@@ -33,6 +40,8 @@ Route::get('/admin', function () {
  Route::get('/banner','BannerController@index');
  Route::get('/createbanner','BannerController@create');
  Route::post('/storebanner','BannerController@store');
+ Route::get('/editbanner/{slug}','BannerController@edit');
+ Route::post('/updatebanner/{slug}','BannerController@update');
  Route::post('/updatebannerstatus/{slug}','BannerController@updatestatus');
  Route::DELETE('/deletebanner/{slug}','BannerController@destroy');
 
@@ -53,9 +62,28 @@ Route::get('/sentmessage', 'ContactController@sentmessage');
 Route::get('/replymessage/{id}', 'ContactController@replyform');
 Route::DELETE('/deletereply/{id}', 'ContactController@deletereply');
 
+//contactdetails
+Route::get('/viewcontactdetail', 'ContactdetailController@index');
+Route::get('/addcontactdetail', 'ContactdetailController@insertform');
+Route::post('/storecontactdetail', 'ContactdetailController@store');
+Route::get('/editcontactdetail/{id}', 'ContactdetailController@edit');
+Route::post('/updatecontactdetail/{id}', 'ContactdetailController@update');
+Route::DELETE('/deletecontactdetail/{id}', 'ContactdetailController@delete');
+
+
 //Dashboard
 Route::get('/dashboard','DashboardController@index');
 Route::post('/storequickmail','DashboardController@store');
 Route::get('/viewquickmail','DashboardController@viewquick');
 Route::DELETE('/deletequick/{id}','DashboardController@deletequick');
 
+// SEO-Section
+Route::get('/viewseo','SeoController@index');
+Route::get('/addseo','SeoController@insertform');
+Route::post('/storeseo','SeoController@store');
+Route::get('/editseo/{id}','SeoController@edit');
+Route::post('/updateseo/{id}', 'SeoController@update');
+Route::DELETE('/deleteseo/{id}','SeoController@delete');
+
+
+});

@@ -6,7 +6,7 @@
     <small>Details</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-file-image-o"></i> Home</a></li>
+    <li><a href="{{url('/dashboard')}}"><i class="fa fa-file-image-o"></i>Dashboard</a></li>
     <li class="active"><a href="{{url()->current()}}">Gallery</a></li>
   </ol>
 </section>
@@ -120,12 +120,13 @@
                 <p>Are you sure you want to delete {{e($d['title'])}}?</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
+                
                 <form action="{{url('/deletegallery/'.$d->slug)}}" method="POST">
                   @method('DELETE')
-                  <button type="submit" class="btn btn-outline">Yes</button>
+                  <button type="submit" class="btn btn-outline pull-left">Yes</button>
                   @csrf
                 </form>
+                <button type="button" class="btn btn-outline " data-dismiss="modal">Cancel</button>
               </div>
             </div>
             <!-- /.modal-content -->

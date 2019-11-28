@@ -24,11 +24,11 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="example1" class="table table-bordered table-hover">
+          <table id="example1" class="table table-bordered table-hover table_center">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Description</th>
+                <th>About Title</th>
+                <th>About Description</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -67,18 +67,9 @@
 
             </td>
             <td> 
-             <div class="btn-group">
-               <button type="button" class="btn btn-default">Action</button>
-               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                 <span class="caret"></span>
-                 <span class="sr-only">Toggle Dropdown</span>
-               </button>
-               <ul class="dropdown-menu" role="menu">
-                 <li><a data-toggle="modal" data-target="#modal{{$datas['slug']}}">View</a></li>
-                 <li><a  href="{{URL('/editabout',$datas['slug'])}}">Edit</a></li>
-                 <li><a data-toggle="modal" data-target="#modal-danger{{$datas['slug']}}">Delete</a></li>
-               </ul>
-             </div>
+             <button class="btn btn-success" data-toggle="modal" data-target="#modal{{$datas['slug']}}" style="margin-right: 5px;"><i class="fa fa-eye" ></i></button>       
+                  <a href="{{URL('/editabout',$datas['slug'])}}"><button class="btn btn-warning"  style="margin-right: 5px;"><i class="fa fa-edit"></i></button></a>
+                  <button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger{{$datas['slug']}}"><i class="fa fa-trash"></i></button>
            </td>
          </tr>
          @endforeach        
@@ -95,6 +86,8 @@
 </section>
 <!-- ./wrapper -->
 
+
+
 @foreach($data as $datas)
 <!-- pop up models for view -->
 <div class="modal fade" id="modal{{$datas['slug']}}">
@@ -106,15 +99,15 @@
           <h4 class="modal-title">View About</h4>
         </div>
         <div class="modal-body">
-                <strong>Title</strong>
+                <strong>About Title</strong>
                 <p>{{e($datas['title'])}}</p><br>
-                <strong>Summary</strong>
+                <strong>About Summary</strong>
                 <p>{{e($datas['summary'])}}</p><br>
-                <strong>Description</strong>
+                <strong>About Description</strong>
                 <p>{!!$datas['description']!!}</p><br>
-                <strong>Image</strong>
+                <strong>About Image</strong>
                 <p><img src="{{ url('public/uploads/'.$datas['image'])}}" class="image1" alt=""></p><br>
-                <strong>Image Description</strong>
+                <strong>About Image Description</strong>
                 <p>{{e($datas['imagedescription'])}}</p><br>
                 <strong>Status</strong>
                 @if($datas['status']=='Active')
@@ -150,12 +143,13 @@
                   <p>Are you sure you want to delete ?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
+                  
                   <form action="{{url('/deleteabout/'.$datas->slug)}}" method="POST">
                     @method('DELETE')
-                    <button type="submit" class="btn btn-outline">Yes</button>
+                    <button type="submit" class="btn btn-outline pull-left">Yes</button>
                     @csrf
                   </form>
+                  <button type="button" class="btn btn-outline" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
               <!-- /.modal-content -->

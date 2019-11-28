@@ -6,8 +6,8 @@
 		<small>Details</small>
 	</h1>
 	<ol class="breadcrumb">
-		<li><a href="{{url('/dashboard')}}"><i class="fa fa-file-photo-o"></i> Home</a></li>
-		<li class="active"><a href="{{url('/gallery')}}">Gallery</a></li>
+		<li><a href="{{url('/dashboard')}}"><i class="fa fa-file-photo-o"></i> Dashboard</a></li>
+		<li class="active"><a href="{{url('/galleries')}}">Gallery</a></li>
 		<li class="active"><a href="{{url()->current()}}">Add-Image</a></li>
 	</ol>
 </section>
@@ -38,15 +38,15 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Status</label><br>
-            <input type="radio" name="status" checked value="Active"> Active &nbsp; &nbsp; &nbsp; &nbsp;
-            <input type="radio" name="status" value="Inactive"> Inactive
+            <input type="radio" name="status" checked value="Active" class="minimal-red" > Active &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="status" value="Inactive" class="minimal-red" > Inactive
           </div>
           <div class="modal-footer col-md-6">
             <button type="submit" class="btn btn-info pull-left">Add Image</button>  
           </div>
       </form>
       <div class="modal-footer col-md-6">
-      <a href="{{URL()->previous()}}"><button type="button" class="btn btn-default ">Back</button></a>
+      <a href="{{URL()->previous()}}"><button type="button" class="btn btn-default ">Cancel</button></a>
       </div>
       </div>
     </div>

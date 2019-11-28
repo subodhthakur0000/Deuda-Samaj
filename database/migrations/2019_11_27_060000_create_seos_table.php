@@ -15,6 +15,10 @@ class CreateSeosTable extends Migration
     {
         Schema::create('seos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('pagetitle');
+            $table->string('seotitle');
+            $table->string('seokeyword');
+            $table->longtext('seodescription');
             $table->timestamps();
         });
     }

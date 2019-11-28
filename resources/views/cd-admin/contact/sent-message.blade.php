@@ -3,8 +3,9 @@
     <section class="content-header">
       <h1>Contact</h1>
       <ol class="breadcrumb">
-        <li><a href="{{url('/dashboard')}}"><i class="fa fa-envelope"></i> Home</a></li>
+        <li><a href="{{url('/dashboard')}}"><i class="fa fa-phone"></i>Dashboard</a></li>
         <li class="active"><a href="{{url('/contact')}}">Contact</a></li>
+        <li class="active"><a href="{{url()->current()}}">Sent Message</a></li>
       </ol>
     </section>
 

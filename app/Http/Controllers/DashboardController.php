@@ -16,13 +16,14 @@ class DashboardController extends Controller
    use Validation;
     public function index()
     {
+      $countcontact = Contact::all()->count();
     	$countreplied = Contact::where('status','Replied')->count();
       $countnotreplied = Contact::where('status','Not Replied')->count();
 
       $countquickmail = Quickmail::all()->count();
     	$quick = Quickmail::orderBy('created_at', 'desc')->take(8)->get();
 
-    	return view('cd-admin.Dashboard.view-dashboard',compact('quick','countquickmail','countreplied','countnotreplied'));
+    	return view('cd-admin.Dashboard.view-dashboard',compact('countcontact','quick','countquickmail','countreplied','countnotreplied'));
     }
 
     public function store()

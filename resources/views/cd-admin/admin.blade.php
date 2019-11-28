@@ -62,6 +62,8 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- sweetalert -->
+<link rel="stylesheet" href="{{asset('/node_modules/sweetalert2/dist/sweetalert2.min.css')}}">
 
   <style>
         .img1 {
@@ -73,6 +75,12 @@
             align-items:  center;
             text-align: center;
           }
+
+        .bannerimage1{
+          height: 200px;
+        width: 600px;
+        }
+      
     </style>  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -98,18 +106,18 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="admin image" class="user-image" alt="User Image">
-              <span class="hidden-xs">admin name</span>
+              <img src="{{ asset('public/uploads/'.Auth::user()->image) }}" class="user-image" alt="User Image">
+              <span class="hidden-xs">{{Auth::user()->name}}</span>
             </a>
 
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="image of admin" class="img-circle" alt="User Image">
+                <img src="{{ asset('public/uploads/'.Auth::user()->image) }}" class="img-circle" alt="User Image">
 
                 <p>
-                  admin email
-                  <small>admin role</small>
+                  {{Auth::user()->email}}
+                  <small>{{Auth::user()->role}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -164,8 +172,8 @@
        <ul class="sidebar-menu" data-widget="tree">
         <li class="header">ABOUT</li>
           <li>
-            <a href="{{url('/managementmessage')}}">
-              <i class="fa fa-comments-o"></i>
+            <a href="{{url('/abouts')}}">
+              <i class="fa fa-info-circle"></i>
               <span>About</span></a>
             </li>
         </ul>
@@ -173,39 +181,29 @@
         <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Gallery</li>
           <li>
-            <a href="{{url('/managementmessage')}}">
-              <i class="fa fa-comments-o"></i>
+            <a href="{{url('/galleries')}}">
+              <i class="fa fa-file-photo-o"></i>
               <span>Gallery</span></a>
             </li>
         </ul>
 
+
         <ul class="sidebar-menu" data-widget="tree">
-          <li class="header">GALLERY</li>
+          <li class="header">CONTACTS</li>
             <li class="treeview">
               <a href="{{url('/abouts')}}">
-                <i class="fa fa-info-circle"></i> <span>Gallery</span>
+                <i class="fa fa-phone"></i> <span>Contacts</span>
                 <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
                 </span>
+                <?php
+                       $count_not_replied = App\Contact::where('status','Not Replied')->count();
+                ?>
+            <small class="label pull-right bg-yellow">{{$count_not_replied}}</small>
               </a>
             <ul class="treeview-menu">
-              <li><a href="{{url('/abouts')}}"><i class="fa fa-circle-o"></i> About Us</a></li>
-              <li><a href="{{url('/goal')}}"><i class="fa fa-circle-o"></i> Our Goal</a></li>
-              <li><a href="{{url('/menu')}}"><i class="fa fa-circle-o"></i> About Submenu</a></li>
+              <li><a href="{{url('/contacts')}}"><i class="fa fa-circle-o"></i> Contacts</a></li>
+              <li><a href="{{url('/viewcontactdetail')}}"><i class="fa fa-circle-o"></i> Contact Detail</a></li>
             </ul>
-        </li>
-      </ul>
-
-          <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">CONTACTS</li>
-        <li>
-          <a href="{{url('/contact')}}">
-            <i class="fa fa-envelope"></i> <span>Contacts</span>
-            <span class="pull-right-container">
-            </span>
-            
-            <small class="label pull-right bg-yellow">1</small>
-          </a>
         </li>
       </ul>
       <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -273,6 +271,48 @@
 <!-- DataTables -->
 <script src="{{asset('public/cd-admin/creatu/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('public/cd-admin/creatu/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+
+<script src="{{asset('node_modules/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<script>
+       @if(Session::has('success'))
+           const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+              onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: '{{ Session::get('success') }}'
+          })
+       @elseif(Session::has('error'))
+         const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+              onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+          })
+
+          Toast.fire({
+            icon: 'error',
+            title: '{{ Session::get('error') }}'
+          })
+      @endif
+
+
+</script>
 
 
 <!-- Select2 -->
@@ -361,27 +401,19 @@
 <script src="{{ asset('public/cd-admin/creatu/dist/js/demo.js') }}"></script>
 
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
-  <script>
-    @if(Session::has('success'))
-        Swal.fire({
-            position: 'top-end',
-            type: 'success',
-            title: '{{ Session::get('success') }}',
-            showConfirmButton: false,
-            timer: 1500
-          })
-    @elseif(Session::has('error'))
-    Swal.fire({
-            position: 'top-end',
-            type: 'error',
-            title: '{{ Session::get('error') }}',
-            showConfirmButton: false,
-            timer: 1500
-          })
-    @endif
-  </script>
+  
+</script>
+<script type="text/javascript">
+  //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass   : 'iradio_flat-green'
+    })
 </script>  
 </body>
 </html>

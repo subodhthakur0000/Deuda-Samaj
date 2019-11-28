@@ -6,7 +6,7 @@
     SEO
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-search"></i>Home</a></li>
+    <li><a href="{{url('/dashboard')}}"><i class="fa fa-search"></i>Dashboard</a></li>
     <li class="active"><a href="{{url('/viewseo')}}">SEO</a></li>
   </ol>
 </section>
@@ -23,7 +23,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="example1" class="table table-bordered table-hover">
+          <table id="example1" class="table table-bordered table-hover table_center">
             <thead>
               <tr>
                 <th>Page Title</th>
@@ -40,18 +40,11 @@
                 </td>
                 <td>{{e($seos['seokeyword'])}}</td>
                 <td> 
-                 <div class="btn-group">
-                   <button type="button" class="btn btn-default">Action</button>
-                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                     <span class="caret"></span>
-                     <span class="sr-only">Toggle Dropdown</span>
-                   </button>
-                   <ul class="dropdown-menu" role="menu">
-                     <li><a data-toggle="modal" data-target="#modal">View</a></li>
-                     <li><a  href="{{url('/editseo',$seos->id)}}">Edit</a></li>
-                     <li><a data-toggle="modal" data-target="#modal-danger{{$seos->id}}">Delete</a></li>
-                   </ul>
-                 </div>
+
+
+                 <button class="btn btn-success"  data-toggle="modal" data-target="#modal"style="margin-right: 5px;"><i class="fa fa-eye" ></i></button>       
+                  <a href="{{url('/editseo',$seos->id)}}"><button class="btn btn-warning"  style="margin-right: 5px;"><i class="fa fa-edit"></i></button></a>
+                  <button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger{{$seos->id}}"><i class="fa fa-trash"></i></button>
                </td>
              </tr>
              @endforeach
@@ -79,13 +72,13 @@
         </div>
         <div class="modal-body">
           <strong>Page Title</strong>
-                <p>{!!e($seos['pagetitle'])!!}</p><br>
+                <p>{!!str_limit(e($seos['pagetitle']),'100')!!}</p><br>
                 <strong>SEO Title</strong>
-                <p>{!!e($seos['seotitle'])!!}</p><br>
+                <p>{!!str_limit(e($seos['seotitle']),'100')!!}</p><br>
                 <strong>SEO Keyword</strong>
-                <p>{!!e($seos['seokeyword'])!!}</p><br>
+                <p>{!!str_limit(e($seos['seokeyword']),'150')!!}</p><br>
                 <strong>SEO Description</strong>
-                <p>{!!$seos['seodescription']!!}</p><br>
+                <p>{!!str_limit(e($seos['seodescription']),'150')!!}</p><br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -111,78 +104,19 @@
                   <p>Are you sure you want to delete {{e($seos['pagetitle'])}} ?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
+                  
                   <form action="{{url('/deleteseo/'.$seos->id)}}" method="POST">
                     @method('DELETE')
-                    <button type="submit" class="btn btn-outline">Yes</button>
+                    <button type="submit" class="btn btn-outline pull-left">Yes</button>
                     @csrf
                   </form>
+                  <button type="button" class="btn btn-outline " data-dismiss="modal">Cancel</button>
                 </div>
               </div>
               <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
           </div>
-
-
-  <!-- pop up models for edit-->
-  <div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Edit SEO</h4>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <!-- left column -->
-              <div class="col-md-12">
-                <!-- general form elements -->
-                <div class="box box-primary">
-                  <div class="box-header with-border">
-                  </div>
-                  <!-- /.box-header -->
-                  <!-- form start -->
-                  <form role="form">
-                    <div class="box-body">
-                      <div class="form-group">
-                        <label>Select Page Title</label>
-                        <select class="form-control">
-                          <option>Home</option>
-                          <option>About</option>
-                          <option>Accomodation </option>
-                          <option>Room </option>
-                          <option>Facilities </option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">SEO Title</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Edit Title">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">SEO Description</label>
-                        <textarea id="compose-textarea" class="form-control" style="height: 300px">
-
-
-                        </textarea>
-                      </div>
-                    </form>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-info">Update</button>
-                    </div>
-                  </div>
-
-                </div>
-                <!-- /.modal-content -->
-              </div>
-              <!-- /.modal-dialog -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     @endforeach
     @endsection

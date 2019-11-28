@@ -3,11 +3,9 @@
  <section class="content-header">
       <h1>
         Dashboard
-        <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+        <li><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i>Dashboard</a></li>
       </ol>
     </section>
         <section class="content">
@@ -17,14 +15,14 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>Blog</h3>
+              <h3>{{$countcontact}}</h3>
 
-              <p>Blog</p>
+              <p>Contact</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fa fa-envelope"></i>
             </div>
-            <a href="tailoredprograms" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{url('/contacts')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -37,7 +35,7 @@
               <p>Replied Contact</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-mail-reply-all"></i>
             </div>
             <a href="{{url('/contacts')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
@@ -66,7 +64,7 @@
               <p>Quick Mail</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="fa fa-mail-reply"></i>
             </div>
             <a href="{{url('/viewquickmail')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>

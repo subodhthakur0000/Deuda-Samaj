@@ -5,7 +5,7 @@
     Contact
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-search"></i>Home</a></li>
+    <li><a href="{{url('/dashboard')}}"><i class="fa fa-phone"></i>Dashboard</a></li>
     <li class="active"><a href="{{'/contact'}}">Contact</a></li>
     <li class="active"><a href="{{url()->current()}}">Reply</a></li>
   </ol>

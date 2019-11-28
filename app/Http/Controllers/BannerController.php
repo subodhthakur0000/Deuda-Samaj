@@ -38,6 +38,36 @@ class BannerController extends Controller
         return redirect('/banner')->with('success','Inserted Successfully');
     }
 
+     public function edit($slug)
+      {
+          $data = DB::table('banners')->where('slug',$slug)->get()->first();
+          return view('cd-admin.banner.edit-banner',compact('data'));
+      }
+
+       public function update($slug)
+          {
+              $a = [];
+              $test = $this->bannerupdatevalidation();
+              $a['updated_at'] = Carbon::now();
+              $a['slug'] = str_slug($test['title']);  
+             $image = DB::table('banners')->where('slug',$slug)->get()->first();
+               if(!empty($test['image']))
+               {
+                unlink('public/uploads/'.$image->image);
+                $a['image'] = $this->imageupload($test['image']);
+              }
+              else{
+
+                $a['image'] = $image->image;
+
+              }
+
+              $merge = array_merge($test,$a);
+
+          DB::table('banners')->where('slug',$slug)->update($merge);
+          return redirect('/banner')->with('success','Updated Successfully');
+      }
+
     public function updatestatus($slug)
     {
       $a = [];

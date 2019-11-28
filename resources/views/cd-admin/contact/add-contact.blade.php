@@ -5,8 +5,9 @@
     Contact
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-envelope"></i> Home</a></li>
+    <li><a href="{{url('/dashboard')}}"><i class="fa fa-phone"></i>Dashboard</a></li>
     <li class="active"><a href="{{url('/contact')}}">Contact</a></li>
+    <li class="active"><a href="{{url()->current()}}">Add Contact</a></li>
   </ol>
 </section>
 <section class="content">
@@ -29,10 +30,6 @@
               <div class="form-group">
                 <input type="email" class="form-control" name="email" placeholder="Enter Email" value="{{old('email')}}">
                 <div class="text text-danger">{{ $errors->first('email') }}</div>
-              </div>
-              <div class="form-group">
-                <input type="number" class="form-control" name="mobilenumber" placeholder="Enter Mobile Number" value="{{old('mobilenumber')}}">
-                <div class="text text-danger">{{ $errors->first('mobilenumber') }}</div>
               </div>
               <div>
                 <textarea class="textarea" placeholder="Message" name="message" 

@@ -5,7 +5,7 @@
     Contact
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-search"></i>Home</a></li>
+    <li><a href="{{url('/dashboard')}}"><i class="fa fa-phone"></i>Dashboard</a></li>
     <li class="active"><a href="{{url('/contact')}}">Contact</a></li>
   </ol>
 </section>
@@ -90,8 +90,6 @@
                 <p>{{e($datas['name'])}}</p><br>
                 <p><b>Email ID:</b></p>
                 <p>{{e($datas['email'])}}</p><br>
-                <p><b>Mobile Number:</b></p>
-                <p>{{e($datas['mobilenumber'])}}</p><br>
                 <p><b>Message:</b></p>
                 <p>{!!$datas['message']!!}</p><br>
                 <p><b>Sent At:</b></p>
@@ -99,7 +97,8 @@
                 
               </div>
               <div class="modal-footer">
-                <a href="{{url('replymessage',$datas['id'])}}"><button class="btn btn-primary">Reply</button></a>
+                <a href="{{url('replymessage',$datas['id'])}}"><button class="btn btn-primary pull-left">Reply</button></a>
+                <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
               </div>
             </div>
             <!-- /.modal-content -->

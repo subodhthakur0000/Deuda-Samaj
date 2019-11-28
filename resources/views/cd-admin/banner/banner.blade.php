@@ -6,7 +6,7 @@
     <small>Details</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-file-image-o"></i> Home</a></li>
+    <li><a href="{{url('/dashboard')}}"><i class="fa fa-file-image-o"></i> Dashboard</a></li>
     <li class="active"><a href="{{url()->current()}}">Banner</a></li>
   </ol>
 </section>
@@ -38,18 +38,18 @@
                 <tbody>
                  @foreach($data as $d)
                  <tr>
-                  <td>{{e($d->title)}}</td>
+                  <td>{{$d['title']}}</td>
                   <td>
-                    <a data-toggle="modal" data-target="#modal-warning{{$d->facebook}}" class="btn btn-social-icon btn-facebook">
+                    <a href="{{$d->facebook}}" target="_blank" class="btn btn-social-icon btn-facebook">
                       <span class="fa fa-facebook"></span>
                     </a>
-                    <a data-toggle="modal" data-target="#modal-warning{{$d->twitter}}" class="btn btn-social-icon btn-twitter">
+                    <a href="{{$d->twitter}}" target="_blank" class="btn btn-social-icon btn-twitter">
                       <span class="fa fa-twitter"></span>
                     </a>
-                    <a data-toggle="modal" data-target="#modal-warning{{$d->linkedin}}" class="btn btn-social-icon btn-linkedin">
+                    <a href="{{$d->linkedin}}" target="_blank" class="btn btn-social-icon btn-linkedin">
                       <span class="fa fa-linkedin"></span>
                     </a>
-                    <a data-toggle="modal" data-target="#modal-warning{{$d->youtube}}" class="btn btn-social-icon btn-danger">
+                    <a href="{{$d->youtube}}" target="_blank" class="btn btn-social-icon btn-danger">
                       <span class="fa fa-youtube"></span>
                     </a>
                   </td>
@@ -86,8 +86,8 @@
                 </td>
                 <td>
 
-                  <button class="btn btn-success"  data-toggle="modal" data-target="#modal-danger{{$d->slug}}"style="margin-right: 5px;"><i class="fa fa-eye" ></i></button>       
-                  <button class="btn btn-warning"  data-toggle="modal" data-target="#modal-danger{{$d->slug}}"style="margin-right: 5px;"><i class="fa fa-edit"></i></button>
+                  <button class="btn btn-success"  data-toggle="modal" data-target="#modal-lg{{$d->slug}}"style="margin-right: 5px;"><i class="fa fa-eye" ></i></button>       
+                  <a href="{{url('editbanner/'.$d->slug)}}"><button class="btn btn-warning"  style="margin-right: 5px;"><i class="fa fa-edit"></i></button></a>
                   <button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger{{$d->slug}}"><i class="fa fa-trash"></i></button>
 
                 </td>
@@ -107,6 +107,38 @@
 
 @foreach($data as $d)
 
+<!-- view Modal -->
+<div class="modal fade" id="modal-lg{{$d->slug}}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">View Comment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><b>Banner Title:</b>&nbsp;{{$d->title}}</p><br>
+        <p><b>Banner Description:</b>&nbsp;{{$d->description}}</p><br>
+        <p><b>Banner Image:</b>&nbsp;<img class="bannerimage1" src="{{url('/public/uploads/'.$d->image)}}"></p><br>
+        <p><b>Banner Image Description:</b>&nbsp;{{$d->imagedescription}}</p><br>
+        <p><b>Facebook Url:</b>&nbsp;{{$d->facebook}}</p><br>
+        <p><b>Twitter Url:</b>&nbsp;{{$d->twitter}}</p><br>
+        <p><b>Linkedin Url:</b>&nbsp;{{$d->linkedin}}</p><br>
+        <p><b>Youtube Url:</b>&nbsp;{{$d->youtube}}</p><br>
+        <p><b>Status:</b>&nbsp;{{$d->status}}</p><br>
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <!--Models for delete image-->
 <div class="modal modal-danger fade" id="modal-danger{{$d->slug}}">
   <div class="modal-dialog">
@@ -120,113 +152,18 @@
           <p>Are you sure you want to delete {{e($d['title'])}}?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
+          
           <form action="{{url('/deletebanner/'.$d->slug)}}" method="POST">
             @method('DELETE')
-            <button type="submit" class="btn btn-outline">Yes</button>
+            <button type="submit" class="btn btn-outline pull-left">Yes</button>
             @csrf
           </form>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  
-
-  <!--Models for banner image-->
-<div class="modal modal-warning fade" id="modal-warning{{$d->facebook}}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Banner</h4>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to redirect to {{e($d['facebook'])}} link?</p>
-        </div>
-        <div class="modal-footer">
-          <a href="{{$d->facebook}}" ><button type="button" class="btn btn-outline pull-left">Yes</button></a>
           <button type="button" class="btn btn-outline " data-dismiss="modal">Cancel</button>
-            
         </div>
       </div>
       <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
   </div>
-
-  <!--Models for banner image-->
-<div class="modal modal-warning fade" id="modal-warning{{$d->twitter}}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Banner</h4>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to redirect to {{e($d['twitter'])}} link?</p>
-        </div>
-        <div class="modal-footer">
-          <a href="{{$d->twitter}}" ><button type="button" class="btn btn-outline pull-left">Yes</button></a>
-          <button type="button" class="btn btn-outline " data-dismiss="modal">Cancel</button>
-            
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-
-  <!--Models for banner image-->
-<div class="modal modal-warning fade" id="modal-warning{{$d->linkedin}}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Banner</h4>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to redirect to {{e($d['linkedin'])}} link?</p>
-        </div>
-        <div class="modal-footer">
-          <a href="{{$d->linkedin}}" ><button type="button" class="btn btn-outline pull-left">Yes</button></a>
-          <button type="button" class="btn btn-outline " data-dismiss="modal">Cancel</button>
-            
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-
-  <!--Models for banner image-->
-<div class="modal modal-warning fade" id="modal-warning{{$d->youtube}}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Banner</h4>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to redirect to {{e($d['youtube'])}} link?</p>
-        </div>
-        <div class="modal-footer">
-          <a href="{{$d->youtube}}" ><button type="button" class="btn btn-outline pull-left">Yes</button></a>
-          <button type="button" class="btn btn-outline " data-dismiss="modal">Cancel</button>
-            
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-
-  
-
   @endforeach
   @endsection
