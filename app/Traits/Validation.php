@@ -68,10 +68,10 @@ trait Validation {
                   'description' => 'required|max:200',
                   'image'    => 'required|image|mimes:jpg,JPG,JPEG,jpeg,png,GIF',
                   'imagedescription'  => 'required|max:200',
-                  'facebook' => 'required',
-                  'twitter' => 'required',
-                  'linkedin' => 'required',
-                  'youtube' => 'required',
+                  'facebook' => '',
+                  'twitter' => '',
+                  'linkedin' => '',
+                  'youtube' => '',
                   'status'      => 'required',
               ]);
              return ($data);
@@ -84,11 +84,11 @@ trait Validation {
                   'description' => 'required|max:200',
                   'image'    => 'image|mimes:jpg,JPG,JPEG,jpeg,png,GIF',
                   'imagedescription'  => 'required|max:200',
-                  'facebook' => 'required',
-                  'twitter' => 'required',
-                  'linkedin' => 'required',
-                  'youtube' => 'required',
-                  'status'      => 'required',
+                  'facebook' => '',
+                  'twitter' => '',
+                  'linkedin' => '',
+                  'youtube' => '',
+                  'status'      => '',
               ]);
              return ($data);
         }

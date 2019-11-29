@@ -33,23 +33,23 @@ class AboutController extends Controller
 		return redirect('/abouts')->with('success','Inserted Successfully');
 	}
 
-	public function edit($slug)
+	public function edit($id)
 	{
-		$data = DB::table('abouts')->where('slug',$slug)->get()->first();
+		$data = DB::table('abouts')->where('id',$id)->get()->first();
 		return view('cd-admin.About.edit-about',compact('data'));
 	}
 
-	public function update(About $a,$slug)
+	public function update(About $a,$id)
 	{
 		$test = $this->aboutupdatevalidation();
-		$a->updateabout($slug,$test);
+		$a->updateabout($id,$test);
 		return redirect('/abouts')->with('success','Updated Successfully');
 	}
 
-	public function updatestatus($slug)
+	public function updatestatus($id)
 	{
 		$a = [];
-		$data = DB::table('abouts')->where('slug',$slug)->get()->first();
+		$data = DB::table('abouts')->where('id',$id)->get()->first();
 		if($data->status=='Active')
 		{
 			$a['status'] = 'Inactive';
@@ -58,19 +58,19 @@ class AboutController extends Controller
 		{
 			$a['status'] = 'Active'; 
 		}
-		DB::table('abouts')->where('slug',$slug)->update($a);
+		DB::table('abouts')->where('id',$id)->update($a);
 		return redirect('/abouts')->with('success','Status Updated Successfully');
 
 	}
 
-	public function destroy($slug)
+	public function destroy($id)
 	{
-		$imageunlink = DB::table('abouts')->where('slug',$slug)->get()->first();
+		$imageunlink = DB::table('abouts')->where('id',$id)->get()->first();
 		if(file_exists('public/uploads/'.$imageunlink->image))
 		{
 			unlink('public/uploads/'.$imageunlink->image);
 		}
-		DB::table('abouts')->where('slug',$slug)->delete();
+		DB::table('abouts')->where('id',$id)->delete();
 		return redirect('/abouts')->with('error','Deleted Successfully');
 	}
 }

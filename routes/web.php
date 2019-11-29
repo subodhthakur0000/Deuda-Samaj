@@ -14,10 +14,14 @@
 
 
 
+// Frontend
+
+Route::get('/','FrontendController@index');
+Route::post('/storecontactfront','FrontendController@storecontact');
 
 // Backend
 
-Auth::routes();
+Auth::routes(['register'=>false]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware'=> 'auth'] , function(){
 
@@ -31,32 +35,32 @@ Route::DELETE('/deleteadmin/{id}', 'HomeController@deleteadmin');
  Route::get('/abouts','AboutController@index');
  Route::get('/createabout','AboutController@create');
  Route::post('/storeabout','AboutController@store');
- Route::get('/editabout/{slug}','AboutController@edit');
- Route::post('/updateabout/{slug}','AboutController@update');
- Route::post('/updateaboutstatus/{slug}','AboutController@updatestatus');
- Route::DELETE('/deleteabout/{slug}','AboutController@destroy');
+ Route::get('/editabout/{id}','AboutController@edit');
+ Route::post('/updateabout/{id}','AboutController@update');
+ Route::post('/updateaboutstatus/{id}','AboutController@updatestatus');
+ Route::DELETE('/deleteabout/{id}','AboutController@destroy');
 
 //Banner
  Route::get('/banner','BannerController@index');
  Route::get('/createbanner','BannerController@create');
  Route::post('/storebanner','BannerController@store');
- Route::get('/editbanner/{slug}','BannerController@edit');
- Route::post('/updatebanner/{slug}','BannerController@update');
- Route::post('/updatebannerstatus/{slug}','BannerController@updatestatus');
- Route::DELETE('/deletebanner/{slug}','BannerController@destroy');
+ Route::get('/editbanner/{id}','BannerController@edit');
+ Route::post('/updatebanner/{id}','BannerController@update');
+ Route::post('/updatebannerstatus/{id}','BannerController@updatestatus');
+ Route::DELETE('/deletebanner/{id}','BannerController@destroy');
 
   //Gallery
  Route::get('/galleries','GalleryController@index');
  Route::get('/creategallery','GalleryController@create');
  Route::post('/storegallery','GalleryController@store');
- Route::post('/updategallerystatus/{slug}','GalleryController@updatestatus');
- Route::DELETE('/deletegallery/{slug}','GalleryController@destroy');
+ Route::post('/updategallerystatus/{id}','GalleryController@updatestatus');
+ Route::DELETE('/deletegallery/{id}','GalleryController@destroy');
 
  //Contacts
 Route::get('/contacts', 'ContactController@index');
 Route::get('/addcontact', 'ContactController@insertform');
 Route::post('/storecontact', 'ContactController@store');
-Route::DELETE('/deletecontact/{id}', 'ContactController@delete');
+Route::DELETE('/deletecontacts/{id}', 'ContactController@delete');
 Route::post('/replystore/{id}', 'ContactController@replystore');
 Route::get('/sentmessage', 'ContactController@sentmessage');
 Route::get('/replymessage/{id}', 'ContactController@replyform');
@@ -84,6 +88,4 @@ Route::post('/storeseo','SeoController@store');
 Route::get('/editseo/{id}','SeoController@edit');
 Route::post('/updateseo/{id}', 'SeoController@update');
 Route::DELETE('/deleteseo/{id}','SeoController@delete');
-
-
 });

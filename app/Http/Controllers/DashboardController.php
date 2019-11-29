@@ -23,7 +23,7 @@ class DashboardController extends Controller
       $countquickmail = Quickmail::all()->count();
     	$quick = Quickmail::orderBy('created_at', 'desc')->take(8)->get();
 
-    	return view('cd-admin.Dashboard.view-dashboard',compact('countcontact','quick','countquickmail','countreplied','countnotreplied'));
+    	return view('cd-admin.dashboard.view-dashboard',compact('countcontact','quick','countquickmail','countreplied','countnotreplied'));
     }
 
     public function store()
@@ -40,7 +40,7 @@ class DashboardController extends Controller
  public function viewquick()
  {
   $quick = Quickmail::orderBy('created_at', 'desc')->get();
- 	return view('cd-admin.Dashboard.viewquick',compact('quick'));
+ 	return view('cd-admin.dashboard.viewquick',compact('quick'));
  }
 
  public function deletequick($id)

@@ -19,10 +19,10 @@ class CreateBannersTable extends Migration
             $table->string('description');
             $table->longtext('image')->nullable();
             $table->mediumtext('imagedescription');
-            $table->string('facebook');
-            $table->string('twitter');
-            $table->string('linkedin');
-            $table->string('youtube');
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('youtube')->nullable();
             $table->string('status');
             $table->string('slug')->default()->nullable();
             $table->timestamps();

@@ -16,7 +16,7 @@ class ContactController extends Controller
    use Validation;
     public function index()
     {
-      $data = Contact::orderBy('created_at', 'desc')->paginate(10);
+      $data = Contact::orderBy('created_at', 'desc')->get();
     	return view('cd-admin.contact.contact',compact('data'));	
     }
 

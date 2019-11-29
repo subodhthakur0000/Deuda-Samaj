@@ -123,9 +123,11 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
                   <form action="{{url('/deletecontacts/'.$datas['id'])}}" method="POST">
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-outline">Yes</button>
                     @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-outline">Yes</button>
+                    
                   </form>
                 </div>
               </div>

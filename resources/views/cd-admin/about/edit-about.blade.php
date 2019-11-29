@@ -18,7 +18,7 @@
           <div class="box-header">
             <h3 class="box-title">Edit About</h3>
           </div>
-          <form action="{{url('/updateabout',$data->slug)}}" method="POST" enctype="multipart/form-data">
+          <form action="{{url('/updateabout',$data->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             <form role="form">
               <div class="box-body">

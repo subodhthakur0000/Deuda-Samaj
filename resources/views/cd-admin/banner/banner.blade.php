@@ -40,24 +40,32 @@
                  <tr>
                   <td>{{$d['title']}}</td>
                   <td>
-                    <a href="{{$d->facebook}}" target="_blank" class="btn btn-social-icon btn-facebook">
-                      <span class="fa fa-facebook"></span>
-                    </a>
-                    <a href="{{$d->twitter}}" target="_blank" class="btn btn-social-icon btn-twitter">
+                    @if(isset($d['facebook']))
+                      <a href="{{$d->facebook}}" target="_blank" class="btn btn-social-icon btn-facebook">
+                        <span class="fa fa-facebook"></span>
+                        </a>
+                      @endif
+                      @if(isset($d['twitter']))
+                      <a href="{{$d->twitter}}" target="_blank" class="btn btn-social-icon btn-twitter">
                       <span class="fa fa-twitter"></span>
-                    </a>
-                    <a href="{{$d->linkedin}}" target="_blank" class="btn btn-social-icon btn-linkedin">
+                      </a>
+                      @endif
+                      @if(isset($d['linkedin']))
+                      <a href="{{$d->linkedin}}" target="_blank" class="btn btn-social-icon btn-linkedin">
                       <span class="fa fa-linkedin"></span>
-                    </a>
-                    <a href="{{$d->youtube}}" target="_blank" class="btn btn-social-icon btn-danger">
+                      </a>
+                      @endif
+                      @if(isset($d['youtube']))
+                      <a href="{{$d->youtube}}" target="_blank" class="btn btn-social-icon btn-danger">
                       <span class="fa fa-youtube"></span>
-                    </a>
+                      </a>
+                      @endif
                   </td>
                   <td><img src="{{asset('public/uploads/'.$d->image)}}" class="img1" alt="User Image">
                   </td>
                   <td>
                     
-                    <form action="{{url('/updatebannerstatus/'.$d->slug)}}" method="POST">
+                    <form action="{{url('/updatebannerstatus/'.$d->id)}}" method="POST">
                       @csrf
                       <div class="btn-group">
                        @if($d->status == 'Active')
@@ -86,9 +94,9 @@
                 </td>
                 <td>
 
-                  <button class="btn btn-success"  data-toggle="modal" data-target="#modal-lg{{$d->slug}}"style="margin-right: 5px;"><i class="fa fa-eye" ></i></button>       
-                  <a href="{{url('editbanner/'.$d->slug)}}"><button class="btn btn-warning"  style="margin-right: 5px;"><i class="fa fa-edit"></i></button></a>
-                  <button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger{{$d->slug}}"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-success"  data-toggle="modal" data-target="#modal-lg{{$d->id}}"style="margin-right: 5px;"><i class="fa fa-eye" ></i></button>       
+                  <a href="{{url('editbanner/'.$d->id)}}"><button class="btn btn-warning"  style="margin-right: 5px;"><i class="fa fa-edit"></i></button></a>
+                  <button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger{{$d->id}}"><i class="fa fa-trash"></i></button>
 
                 </td>
               </tr>
@@ -106,27 +114,47 @@
 
 
 @foreach($data as $d)
-
+v
 <!-- view Modal -->
-<div class="modal fade" id="modal-lg{{$d->slug}}">
+<div class="modal fade" id="modal-lg{{$d->id}}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">View Comment</h4>
+        
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <strong>Status</strong>
+                @if($d['status']=='Active')
+                <p><button class="btn btn-success">{{$d['status']}}</button></p><br>
+                @else
+                <p><button class="btn btn-danger">{{$d['status']}}</button></p><br>
+                @endif
+        <h4 class="modal-title" align="center">{{$d->title}}</h4>
       </div>
       <div class="modal-body">
-        <p><b>Banner Title:</b>&nbsp;{{$d->title}}</p><br>
-        <p><b>Banner Description:</b>&nbsp;{{$d->description}}</p><br>
-        <p><b>Banner Image:</b>&nbsp;<img class="bannerimage1" src="{{url('/public/uploads/'.$d->image)}}"></p><br>
-        <p><b>Banner Image Description:</b>&nbsp;{{$d->imagedescription}}</p><br>
-        <p><b>Facebook Url:</b>&nbsp;{{$d->facebook}}</p><br>
-        <p><b>Twitter Url:</b>&nbsp;{{$d->twitter}}</p><br>
-        <p><b>Linkedin Url:</b>&nbsp;{{$d->linkedin}}</p><br>
-        <p><b>Youtube Url:</b>&nbsp;{{$d->youtube}}</p><br>
-        <p><b>Status:</b>&nbsp;{{$d->status}}</p><br>
+        <p><img class="bannerimage1" src="{{url('/public/uploads/'.$d->image)}}"></p><br>
+        
+        <p><b>Banner Description:</b><br>&nbsp;{{$d->description}}</p><br>
+        
+        <p><b>Banner Image Description:</b><br>&nbsp;{{$d->imagedescription}}</p><br>
+        
+         @if(isset($d['facebook']))
+         <p><b>Facebook Url:</b>&nbsp;<br>{{$d->facebook}}</p><br>
+         @endif
+         @if(isset($d['twitter']))
+         <p><b>Twitter Url:</b>&nbsp;<br>{{$d->twitter}}</p><br>
+          
+         @endif
+         @if(isset($d['linkedin']))
+         <p><b>Linkedin Url:</b>&nbsp;<br>{{$d->linkedin}}</p><br>
+                      
+         @endif
+         @if(isset($d['youtube']))
+         <p><b>Youtube Url:</b>&nbsp;<br>{{$d->youtube}}</p><br>
+                     
+         @endif
+        
 
       </div>
       <div class="modal-footer justify-content-between">
@@ -140,7 +168,7 @@
 <!-- /.modal -->
 
 <!--Models for delete image-->
-<div class="modal modal-danger fade" id="modal-danger{{$d->slug}}">
+<div class="modal modal-danger fade" id="modal-danger{{$d->id}}">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -153,7 +181,7 @@
         </div>
         <div class="modal-footer">
           
-          <form action="{{url('/deletebanner/'.$d->slug)}}" method="POST">
+          <form action="{{url('/deletebanner/'.$d->id)}}" method="POST">
             @method('DELETE')
             <button type="submit" class="btn btn-outline pull-left">Yes</button>
             @csrf

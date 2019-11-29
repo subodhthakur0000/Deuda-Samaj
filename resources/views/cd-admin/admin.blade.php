@@ -77,8 +77,8 @@
           }
 
         .bannerimage1{
-          height: 200px;
-        width: 600px;
+          height: 400px;
+        width: 100%;
         }
       
     </style>  
@@ -280,7 +280,7 @@
               toast: true,
               position: 'top-end',
               showConfirmButton: false,
-              timer: 1500,
+              timer: 4000,
               timerProgressBar: true,
               onOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -297,7 +297,7 @@
               toast: true,
               position: 'top-end',
               showConfirmButton: false,
-              timer: 1500,
+              timer: 4000,
               timerProgressBar: true,
               onOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)

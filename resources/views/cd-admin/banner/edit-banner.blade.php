@@ -20,7 +20,7 @@
       </div>
       <div class="box-body">
         
-      <form role="form" action="{{url('/updatebanner/'.$data->slug)}}" method="POST" enctype="multipart/form-data" id="the-form">
+      <form role="form" action="{{url('/updatebanner/'.$data->id)}}" method="POST" enctype="multipart/form-data" id="the-form">
         @csrf
         <div class="form-group">
             <label for="exampleInputPassword1"> Banner Title</label>
@@ -36,7 +36,7 @@
 
           <div class="form-group">
             <label for="exampleInputPassword1">Banner Image Upload</label>
-            <input type="file" id="exampleInputFile" name="image" value="{{$data->image}}"required>
+            <input type="file" id="exampleInputFile" name="image" value="{{$data->image}}">
                   <div class="text text-justify">{{$errors->first('image')}}</div>
           </div>
 
@@ -48,25 +48,25 @@
 
           <div class="form-group">
             <label for="exampleInputPassword1"> Facebook Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Facebook Url" name="facebook" value="{{$data->facebook}}"required>
+            <input type="url" class="form-control" id="" placeholder="Enter Facebook Url" name="facebook" value="{{$data->facebook}}">
                   <div class="text text-justify text-primary">{{$errors->first('facebook')}}</div>
           </div>
 
           <div class="form-group">
             <label for="exampleInputPassword1"> Twitter Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Twitter Url" name="twitter" value="{{$data->twitter}}"required>
+            <input type="url" class="form-control" id="" placeholder="Enter Twitter Url" name="twitter" value="{{$data->twitter}}">
                   <div class="text text-justify">{{$errors->first('twitter')}}</div>
           </div>
 
            <div class="form-group">
             <label for="exampleInputPassword1"> Linkedin Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Linkedin Url" name="linkedin" value="{{$data->linkedin}}"required>
+            <input type="url" class="form-control" id="" placeholder="Enter Linkedin Url" name="linkedin" value="{{$data->linkedin}}">
                   <div class="text text-justify">{{$errors->first('linkedin')}}</div>
           </div>
 
           <div class="form-group">
             <label for="exampleInputPassword1"> Youtube Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Youtube Url" name="youtube" value="{{$data->youtube}}"required>
+            <input type="url" class="form-control" id="" placeholder="Enter Youtube Url" name="youtube" value="{{$data->youtube}}">
                   <div class="text text-justify">{{$errors->first('youtube')}}</div>
           </div>
 

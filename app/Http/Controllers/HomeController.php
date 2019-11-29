@@ -72,9 +72,9 @@ class HomeController extends Controller
 
     public function deleteadmin($id){
          $test = DB::table('users')->where('id',$id)->get()->first();
-            if(file_exists('public/uploads'.$test->image))
+            if(file_exists('public/uploads/'.$test->image))
             {
-                unlink('public/uploads'.$test->image);
+                unlink('public/uploads/'.$test->image);
             }
          DB::table('users')->where('id',$id)->delete();
          return redirect('/viewadmin')->with('error','User Deleted Successfully');

@@ -54,10 +54,10 @@ class GalleryController extends Controller
     }
 
 
-    public function updatestatus($slug)
+    public function updatestatus($id)
     {
       $a = [];
-      $data = DB::table('galleries')->where('slug',$slug)->get()->first();
+      $data = DB::table('galleries')->where('id',$id)->get()->first();
       if($data->status=='Active')
       {
         $a['status'] = 'Inactive';
@@ -66,7 +66,7 @@ class GalleryController extends Controller
       {
         $a['status'] = 'Active'; 
       }
-      DB::table('galleries')->where('slug',$slug)->update($a);
+      DB::table('galleries')->where('id',$id)->update($a);
       return redirect('/galleries')->with('success','Status Updated Successfully');
 
      }
@@ -77,14 +77,14 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy($id)
     {
-        $imageunlink = DB::table('galleries')->where('slug',$slug)->get()->first();
+        $imageunlink = DB::table('galleries')->where('id',$id)->get()->first();
             if(file_exists('public/uploads'.$imageunlink->image))
             {
                 unlink('public/uploads'.$test->imageunlink);
             }
-        DB::table('galleries')->where('slug',$slug)->delete();
+        DB::table('galleries')->where('id',$id)->delete();
         return redirect('/galleries')->with('error','Deleted Successfully');
     }
 }

@@ -48,25 +48,25 @@
 
           <div class="form-group">
             <label for="exampleInputPassword1"> Facebook Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Facebook Url" name="facebook" value="{{old('facebook')}}"required>
+            <input type="url" class="form-control" id="" placeholder="Enter Facebook Url" name="facebook" value="{{old('facebook')}}">
                   <div class="text text-justify text-primary">{{$errors->first('facebook')}}</div>
           </div>
 
           <div class="form-group">
             <label for="exampleInputPassword1"> Twitter Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Twitter Url" name="twitter" value="{{old('twitter')}}" required>
+            <input type="url" class="form-control" id="" placeholder="Enter Twitter Url" name="twitter" value="{{old('twitter')}}" >
                   <div class="text text-justify">{{$errors->first('twitter')}}</div>
           </div>
 
            <div class="form-group">
             <label for="exampleInputPassword1"> Linkedin Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Linkedin Url" name="linkedin" value="{{old('linkedin')}}"required>
+            <input type="url" class="form-control" id="" placeholder="Enter Linkedin Url" name="linkedin" value="{{old('linkedin')}}">
                   <div class="text text-justify">{{$errors->first('linkedin')}}</div>
           </div>
 
           <div class="form-group">
             <label for="exampleInputPassword1"> Youtube Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Youtube Url" name="youtube" value="{{old('youtube')}}"required>
+            <input type="url" class="form-control" id="" placeholder="Enter Youtube Url" name="youtube" value="{{old('youtube')}}">
                   <div class="text text-justify">{{$errors->first('youtube')}}</div>
           </div>
 

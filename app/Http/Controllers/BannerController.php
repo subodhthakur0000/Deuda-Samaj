@@ -38,19 +38,19 @@ class BannerController extends Controller
         return redirect('/banner')->with('success','Inserted Successfully');
     }
 
-     public function edit($slug)
+     public function edit($id)
       {
-          $data = DB::table('banners')->where('slug',$slug)->get()->first();
+          $data = DB::table('banners')->where('id',$id)->get()->first();
           return view('cd-admin.banner.edit-banner',compact('data'));
       }
 
-       public function update($slug)
+       public function update($id)
           {
               $a = [];
               $test = $this->bannerupdatevalidation();
               $a['updated_at'] = Carbon::now();
               $a['slug'] = str_slug($test['title']);  
-             $image = DB::table('banners')->where('slug',$slug)->get()->first();
+             $image = DB::table('banners')->where('id',$id)->get()->first();
                if(!empty($test['image']))
                {
                 unlink('public/uploads/'.$image->image);
@@ -64,14 +64,14 @@ class BannerController extends Controller
 
               $merge = array_merge($test,$a);
 
-          DB::table('banners')->where('slug',$slug)->update($merge);
+          DB::table('banners')->where('id',$id)->update($merge);
           return redirect('/banner')->with('success','Updated Successfully');
       }
 
-    public function updatestatus($slug)
+    public function updatestatus($id)
     {
       $a = [];
-      $data = DB::table('banners')->where('slug',$slug)->get()->first();
+      $data = DB::table('banners')->where('id',$id)->get()->first();
       if($data->status=='Active')
       {
         $a['status'] = 'Inactive';
@@ -80,19 +80,19 @@ class BannerController extends Controller
       {
         $a['status'] = 'Active'; 
       }
-      DB::table('banners')->where('slug',$slug)->update($a);
+      DB::table('banners')->where('id',$id)->update($a);
       return redirect('/banner')->with('success','Status Updated Successfully');
 
      }
 
-     public function destroy($slug)
+     public function destroy($id)
     {
-      $imageunlink = DB::table('banners')->where('slug',$slug)->get()->first();
+      $imageunlink = DB::table('banners')->where('id',$id)->get()->first();
       if(file_exists('public/uploads/'.$imageunlink->image))
       {
         unlink('public/uploads/'.$imageunlink->image);
       }
-        DB::table('banners')->where('slug',$slug)->delete();
+        DB::table('banners')->where('id',$id)->delete();
         return redirect('/banner')->with('error','Deleted Successfully');
     }
 }

@@ -32,7 +32,7 @@
                 </div>
                 <div class="carousel-caption">
                   <h3 class="h3-responsive">{{$d['title']}}</h3>
-              <form action="{{url('/updategallerystatus/'.$d->slug)}}" method="POST">
+              <form action="{{url('/updategallerystatus/'.$d->id)}}" method="POST">
                 @csrf
                 <div class="btn-group pull-right">
                  @if($d->status == 'Active')
@@ -58,7 +58,7 @@
               </div> 
             </form>  
             <div>
-              <button class="btn btn-danger pull-left"  data-toggle="modal" data-target="#modal-danger{{$d->slug}}"><i class="fa fa-trash"></i></button>
+              <button class="btn btn-danger pull-left"  data-toggle="modal" data-target="#modal-danger{{$d->id}}"><i class="fa fa-trash"></i></button>
             </div>
           </div>
         </div>
@@ -108,7 +108,7 @@
       @foreach($data as $d)
 
       <!--Models for delete image-->
-      <div class="modal modal-danger fade" id="modal-danger{{$d->slug}}">
+      <div class="modal modal-danger fade" id="modal-danger{{$d->id}}">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -121,7 +121,7 @@
               </div>
               <div class="modal-footer">
                 
-                <form action="{{url('/deletegallery/'.$d->slug)}}" method="POST">
+                <form action="{{url('/deletegallery/'.$d->id)}}" method="POST">
                   @method('DELETE')
                   <button type="submit" class="btn btn-outline pull-left">Yes</button>
                   @csrf
