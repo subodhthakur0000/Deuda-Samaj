@@ -1,51 +1,77 @@
-@extends('cd-admin.admin')
+@extends('cd-admin.admin-master')
 @section('content')
+
 <section class="content-header">
-  <h1>
-    Contact
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-phone"></i>Dashboard</a></li>
-    <li class="active"><a href="{{url('/contact')}}">Contact</a></li>
-    <li class="active"><a href="{{url()->current()}}">Add Contact</a></li>
-  </ol>
-</section>
-<section class="content">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box">
-        <!-- quick email widget -->
-        <div class="box box-info">
-          <div class="box-header">
-            <i class="fa fa-envelope"></i>
-            <h3 class="box-title">Add Contact</h3>
-          </div>
-          <div class="box-body">
-            <form action="{{url('/storecontact')}}" method="post">
-              @csrf
-              <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="Enter Name" value="{{old('name')}}">
-                <div class="text text-danger">{{ $errors->first('name') }}</div>
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control" name="email" placeholder="Enter Email" value="{{old('email')}}">
-                <div class="text text-danger">{{ $errors->first('email') }}</div>
-              </div>
-              <div>
-                <textarea class="textarea" placeholder="Message" name="message" 
-                style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{old('message')}}</textarea>
-                <div class="text text-danger">{{ $errors->first('message') }}</div>
-              </div>
-              <input type="hidden" class="form-control" name="status"  value="Not Replied">
-              <div class="box-footer clearfix">
-              <button type="submit" class="pull-right btn btn-default" id="sendEmail">Send
-              <i class="fa fa-arrow-circle-right"></i></button>
-            </div>
-            </form>
-          </div>
-          </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Contact</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('/contact')}}">Contact</a></li>
+          <li class="breadcrumb-item active"><a href="{{url()->current()}}">Add Contact</a></li>
+        </ol>
       </div>
     </div>
-  </section>
- @endsection
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="row"> 
+		<div class="col-12">
+     <!-- Input addon -->
+     <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Add Contact</h3>
+      </div>
+      <div class="card-body">
+        <form role="form" action="{{url('/storecontact')}}" method="POST" enctype="multipart/form-data" id="the-form">
+          @csrf
+
+         <div class="form-group">
+          <label >Name</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-align-justify text-success"></i></span>
+            </div>
+            <input type="text" class="form-control" name="name" placeholder="Enter Name" value="{{old('name')}}">
+                <div class="text text-danger">{{ $errors->first('name') }}</div>
+        </div>
+        <div class="form-group">
+          <label >Email</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-align-justify text-success"></i></span>
+            </div>
+            <input type="email" class="form-control" name="email" placeholder="Enter Email" value="{{old('email')}}">
+                <div class="text text-danger">{{ $errors->first('email') }}</div>
+          </div>
+        </div>
+                  
+                  <div class="form-group">
+          <label >Message</label>
+          <textarea class="textarea" name="message" placeholder="Place some text here"
+          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{old('message')}}</textarea>
+          <div class="text text-danger">{{ $errors->first('message') }}</div>
+                        <input type="hidden" class="form-control" name="status"  value="Not Replied">
+        <button type="submit" class="btn btn-info" style="float: left">Send</button> 
+      </form>
+      <a href="{{url()->previous()}}"><button type="button" class="btn btn-default" style="float: right">Cancel</button></a>
+
+
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</section>
+<!-- /.content -->
+
+
+@endsection

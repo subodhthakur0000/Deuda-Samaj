@@ -17,13 +17,13 @@ class AboutController extends Controller
 	public function index()
 	{
 		$data = About::all();
-		return view('cd-admin.About.about',compact('data'));
+		return view('cd-admin.about.about',compact('data'));
 	}
 
 
 	public function create()
 	{
-		return view ('cd-admin.About.create-about');
+		return view ('cd-admin.about.create-about');
 	}
 
 	public function store(About $a)
@@ -36,7 +36,7 @@ class AboutController extends Controller
 	public function edit($id)
 	{
 		$data = DB::table('abouts')->where('id',$id)->get()->first();
-		return view('cd-admin.About.edit-about',compact('data'));
+		return view('cd-admin.about.edit-about',compact('data'));
 	}
 
 	public function update(About $a,$id)
@@ -46,31 +46,16 @@ class AboutController extends Controller
 		return redirect('/abouts')->with('success','Updated Successfully');
 	}
 
-	public function updatestatus($id)
+	public function updatestatus($id,About $a)
 	{
-		$a = [];
-		$data = DB::table('abouts')->where('id',$id)->get()->first();
-		if($data->status=='Active')
-		{
-			$a['status'] = 'Inactive';
-		}
-		else
-		{
-			$a['status'] = 'Active'; 
-		}
-		DB::table('abouts')->where('id',$id)->update($a);
+		$a->updatestatus($id);
 		return redirect('/abouts')->with('success','Status Updated Successfully');
 
 	}
 
-	public function destroy($id)
+	public function destroy($id,About $a)
 	{
-		$imageunlink = DB::table('abouts')->where('id',$id)->get()->first();
-		if(file_exists('public/uploads/'.$imageunlink->image))
-		{
-			unlink('public/uploads/'.$imageunlink->image);
-		}
-		DB::table('abouts')->where('id',$id)->delete();
+		$a->deleteabout($id);
 		return redirect('/abouts')->with('error','Deleted Successfully');
 	}
 }

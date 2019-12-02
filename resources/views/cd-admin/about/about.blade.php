@@ -1,31 +1,34 @@
-@extends('cd-admin.admin')
+@extends('cd-admin.admin-master')
 @section('content')
+
 <section class="content-header">
-  <h1>
-     About
-    <small>Details</small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-    <li class="active"><a href="{{url('/abouts')}}">About</a></li>
-  </ol>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>About</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url()->current()}}">About</a></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
 </section>
+
+<!-- Main content -->
 <section class="content">
   <div class="row">
-    <div class="col-xs-12">
-      <div>
-       <a href="{{url('/createabout')}}"> <button type="button" class="btn btn-info">Create About</button></a>
-     </div>
-     <br>
-
-     
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">View About Details</h3>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">About Details</h3>
+          <a href="{{url('/createabout')}}"><button type="button" class="btn bg-gradient-primary float-sm-right">Add About</button></a>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <table id="example1" class="table table-bordered table-hover table_center">
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped table_center">
             <thead>
               <tr>
                 <th>About Title</th>
@@ -37,8 +40,8 @@
             <tbody>
             @foreach($data as $datas)
            <tr>
-            <td>{!!str_limit(e($datas['title']),'50')!!}</td>
-            <td>{!!str_limit($datas['summary'],'50')!!}</td>
+            <td>{!!str_limit(e($datas['title']),'20')!!}</td>
+            <td>{!!str_limit($datas['summary'],'20')!!}</td>
             <td>
               <form action="{{url('/updateaboutstatus/'.$datas['id'])}}" method="POST">
                 @csrf
@@ -68,103 +71,95 @@
 
             </td>
             <td> 
-             <button class="btn btn-success" data-toggle="modal" data-target="#modal{{$datas['id']}}" style="margin-right: 5px;"><i class="fa fa-eye" ></i></button>       
-                  <a href="{{URL('/editabout',$datas['id'])}}"><button class="btn btn-warning"  style="margin-right: 5px;"><i class="fa fa-edit"></i></button></a>
-                  <button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger{{$datas['id']}}"><i class="fa fa-trash"></i></button>
+             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-lg{{$datas['id']}}" style="margin-right: 5px;"><i class="fa fa-eye" ></i></button>       
+                  <a href="{{URL('/editabout',$datas['id'])}}"><button class="btn btn-warning btn-sm"  style="margin-right: 5px;"><i class="fa fa-edit"></i></button></a>
+                  <button class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#modal-danger{{$datas['id']}}"><i class="fa fa-trash"></i></button>
            </td>
          </tr>
          @endforeach        
      </tbody>
-  </table>
-</div>
-<!-- /.box-body -->
-</div>
-<!-- /.box -->
-</div>
-<!-- /.col -->
-</div>
-<!-- /.row -->
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
 </section>
-<!-- ./wrapper -->
-
-
+<!-- /.content -->
 
 @foreach($data as $datas)
-<!-- pop up models for view -->
-<div class="modal fade" id="modal{{$datas['id']}}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>Status</strong>
+
+<!-- view Modal -->
+<div class="modal fade" id="modal-lg{{$datas->id}}">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              
+              
+                 <h4 class="modal-title">{{$datas->title}}</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <strong class="float-left">Status: </strong>
                 @if($datas['status']=='Active')
                 <p><button class="btn btn-success">{{$datas['status']}}</button></p><br>
                 @else
                 <p><button class="btn btn-danger">{{$datas['status']}}</button></p><br>
                 @endif
-          <h4 class="modal-title" align="center">{{e($datas['title'])}}</h4>
-        </div>
-        <div class="modal-body">
-                 <strong>About Image</strong>
-                <p><img src="{{ url('public/uploads/'.$datas['image'])}}" class="image1" alt=""></p><br>
-                
-                <strong>About Summary</strong>
+                <p><img class="bannerimage1" src="{{url('/public/uploads/'.$datas->image)}}"></p><br>
+        
+        <strong>About Summary</strong>
                 <p>{{e($datas['summary'])}}</p><br>
                 <strong>About Description</strong>
                 <p>{!!$datas['description']!!}</p><br>
                
                 <strong>About Image Description</strong>
                 <p>{{e($datas['imagedescription'])}}</p><br>
-                
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
-  
-
-
-    <!--Models for delete -->
-        <div class="modal modal-danger fade" id="modal-danger{{$datas['id']}}">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">About</h4>
-                </div>
-                <div class="modal-body">
-                  <p>Are you sure you want to delete ?</p>
-                </div>
-                <div class="modal-footer">
-                  
-                  <form action="{{url('/deleteabout/'.$datas->id)}}" method="POST">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-outline pull-left">Yes</button>
-                    
-                  </form>
-                  <button type="button" class="btn btn-outline" data-dismiss="modal">Cancel</button>
-                </div>
-              </div>
-              <!-- /.modal-content -->
             </div>
-            <!-- /.modal-dialog -->
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
           </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+
+<!-- delete modal -->
+<div class="modal fade" id="modal-danger{{$datas->id}}">
+        <div class="modal-dialog">
+          <div class="modal-content bg-danger">
+            <div class="modal-header">
+              <h4 class="modal-title">About</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete this {{e($datas['title'])}}?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <form action="{{url('/deleteabout/'.$datas->id)}}" method="POST">
+                @csrf
+                 @method('DELETE')
+              <button type="submit" class="btn btn-outline-light">Yes</button>
+              </form>
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
       @endforeach
 
-      <style type="text/css">
-        .image1{
-          height: 300px;
-        width: 100%;
-        }
-      </style>
-      @endsection
+     
+@endsection

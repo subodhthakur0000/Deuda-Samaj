@@ -12,18 +12,20 @@
 */
 
 
-
-
 // Frontend
 
 Route::get('/','FrontendController@index');
 Route::post('/storecontactfront','FrontendController@storecontact');
 
-// Backend
+
+
+//Backend
 
 Auth::routes(['register'=>false]);
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware'=> 'auth'] , function(){
+
 
 Route::get('/logout','HomeController@logout');
 Route::get('/viewadmin','HomeController@viewadmin');
@@ -88,4 +90,5 @@ Route::post('/storeseo','SeoController@store');
 Route::get('/editseo/{id}','SeoController@edit');
 Route::post('/updateseo/{id}', 'SeoController@update');
 Route::DELETE('/deleteseo/{id}','SeoController@delete');
-});
+	
+	});

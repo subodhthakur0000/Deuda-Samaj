@@ -1,31 +1,35 @@
-@extends('cd-admin.admin')
+@extends('cd-admin.admin-master')
 @section('content')
+
 <section class="content-header">
-  <h1>
-    Gallery 
-    <small>Details</small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-file-image-o"></i>Dashboard</a></li>
-    <li class="active"><a href="{{url()->current()}}">Gallery</a></li>
-  </ol>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Gallery</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url()->current()}}">Gallery</a></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
 </section>
+
+<!-- Main content -->
 <section class="content">
   <div class="row">
-    <!-- left column -->
-    <div class="col-xs-12">
-      <div>
-        <a href="{{URL('/creategallery')}}">
-          <button type="button" class="btn btn-info">
-          Add Image</button></a>
-        </div><br>
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <div>
-              <h3 class="box-title">View Gallery </h3><br><br>
-            </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Gallery Details</h3>
+          <a href="{{url('/creategallery')}}"><button type="button" class="btn bg-gradient-primary float-sm-right">Add Image</button></a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
 
-            @foreach($data as $d)
+          @foreach($data as $d)
             <div class="container" id="status">
               <div class="gallery-image">
                 <img id="img" class="img-fluid" src="{{asset('public/uploads/'.$d->image)}}">
@@ -63,11 +67,17 @@
           </div>
         </div>
           @endforeach
+         
         </div>
+        <!-- /.card-body -->
       </div>
+      <!-- /.card -->
     </div>
+    <!-- /.col -->
   </div>
+  <!-- /.row -->
 </section>
+<!-- /.content -->
 
 <!-- css of album -->
 <style type="text/css">
@@ -105,33 +115,33 @@
   }
 </style>
 
-      @foreach($data as $d)
-
-      <!--Models for delete image-->
-      <div class="modal modal-danger fade" id="modal-danger{{$d->id}}">
+@foreach($data as $d)
+<!-- delete modal -->
+<div class="modal fade" id="modal-danger{{$d->id}}">
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content bg-danger">
             <div class="modal-header">
+              <h4 class="modal-title">Gallery</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Gallery</h4>
-              </div>
-              <div class="modal-body">
-                <p>Are you sure you want to delete {{e($d['title'])}}?</p>
-              </div>
-              <div class="modal-footer">
-                
-                <form action="{{url('/deletegallery/'.$d->id)}}" method="POST">
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-outline pull-left">Yes</button>
-                  @csrf
-                </form>
-                <button type="button" class="btn btn-outline " data-dismiss="modal">Cancel</button>
-              </div>
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-body">
+              <p>Are you sure you want to delete this {{e($d['title'])}}?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <form action="{{url('/deletegallery/'.$d->id)}}" method="POST">
+                @csrf
+                 @method('DELETE')
+              <button type="submit" class="btn btn-outline-light">Yes</button>
+              </form>
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>
+            </div>
           </div>
-          <!-- /.modal-dialog -->
+          <!-- /.modal-content -->
         </div>
-      @endforeach
-      @endsection
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      @endforeach    
+@endsection

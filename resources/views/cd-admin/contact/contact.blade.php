@@ -1,35 +1,36 @@
-@extends('cd-admin.admin')
+@extends('cd-admin.admin-master')
 @section('content')
+
 <section class="content-header">
-  <h1>
-    Contact
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-phone"></i>Dashboard</a></li>
-    <li class="active"><a href="{{url('/contact')}}">Contact</a></li>
-  </ol>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Contact</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('/contact')}}">Contact</a></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
 </section>
+
+<!-- Main content -->
 <section class="content">
   <div class="row">
-    <div class="col-md-12">
-      <div>
-       <a href="{{url('/addcontact')}}"> <button type="button" class="btn btn-info">Add Contact</button></a>
-       <a href="{{url('/sentmessage')}}"> <button type="button" class="btn btn-info">Sent Message</button></a>
-
-     </div>
-     <br>
-
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Contact</h3>
-            </div>
-            <div class="box-body no-padding">
-              <div class="mailbox-controls">
-                <a href="{{url('/contacts')}}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
-              </div>
-              <div class="table-responsive mailbox-messages">
-                <table class="table table-hover table-striped">
-                  <tbody>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Contact Details</h3>
+          <a href="{{url('/addcontact')}}"><button type="button" class="btn bg-gradient-primary float-sm-right" style="margin-left: 5px;">Add Contact</button></a>
+          <a href="{{url('/sentmessage')}}"><button type="button" class="btn bg-gradient-primary float-sm-right">Sent Message</button></a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped table_center">
+            <tbody>
                   @foreach($data as $datas)
                     <tr>
                     <td><a href="" class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger{{$datas['id']}}"><i class="fa fa-trash"></i></a></td>
@@ -44,96 +45,88 @@
                     @endif
                    </td>
                     <td class="mailbox-date">
-                      <?php $date = Carbon\Carbon::parse($datas['created_at']);
-                     $now = Carbon\Carbon::now();
-                      $diff = $date->diffForHumans($now);
-                      ?>
-                      {{$diff}}</td>
+                      {{date('F d,Y',strtotime($datas['created_at']))}} at {{date('g:ia',strtotime($datas['created_at']))}}
+                      </td>
                   </tr>
                   @endforeach
 
                   </tbody>
-                </table>
-                <!-- /.table -->
-              </div>
-              <!-- /.mail-box-messages -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer no-padding">
-              <div class="mailbox-controls">
-                <!-- Check all button -->
-                
-             
-                <!-- /.btn-group -->
-                <a href="{{url('/contacts')}}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
-             
-              </div>
-            </div>
-          </div>
-          <!-- /. box -->
+          </table>
         </div>
-
-      </section>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->
 
 @foreach($data as $datas)
 
-        <div class="modal fade" id="modal-view{{$datas['id']}}">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">View contacts</h4>
-              </div>
-              <div class="modal-body">
-                <p><b>Name :</b></p>
+<!-- view Modal -->
+<div class="modal fade" id="modal-view{{$datas['id']}}">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              
+              
+                 <h4 class="modal-title">View Contact</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><b>Name :</b></p>
                 <p>{{e($datas['name'])}}</p><br>
                 <p><b>Email ID:</b></p>
                 <p>{{e($datas['email'])}}</p><br>
                 <p><b>Message:</b></p>
                 <p>{!!$datas['message']!!}</p><br>
                 <p><b>Sent At:</b></p>
-                <p>{{ Carbon\Carbon::parse($datas['created_at'])->format('d-m-Y i') }}</p><br>
-                
-              </div>
-              <div class="modal-footer">
-                <a href="{{url('replymessage',$datas['id'])}}"><button class="btn btn-primary pull-left">Reply</button></a>
-                <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-              </div>
+                <p>{{date('F d,Y',strtotime($datas['created_at']))}} at {{date('g:ia',strtotime($datas['created_at']))}}</p><br>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-footer justify-content-between">
+              <a href="{{url('replymessage',$datas['id'])}}"><button class="btn btn-primary pull-left">Reply</button></a>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
           </div>
-          <!-- /.modal-dialog -->
+          <!-- /.modal-content -->
         </div>
-        <!-- /.modal -->
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
 
 
-        <!--Models for delete -->
-        <div class="modal modal-danger fade" id="modal-danger{{$datas['id']}}">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">contacts</h4>
-                </div>
-                <div class="modal-body">
-                  <p>Are you sure you want to delete {{e($datas['email'])}}?</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
-                  <form action="{{url('/deletecontacts/'.$datas['id'])}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit" class="btn btn-outline">Yes</button>
-                    
-                  </form>
-                </div>
-              </div>
-              <!-- /.modal-content -->
+<!-- delete modal -->
+<div class="modal fade" id="modal-danger{{$datas['id']}}">
+        <div class="modal-dialog">
+          <div class="modal-content bg-danger">
+            <div class="modal-header">
+              <h4 class="modal-title">Contacts</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <!-- /.modal-dialog -->
+            <div class="modal-body">
+              <p>Are you sure you want to delete this {{e($datas['email'])}}?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+               <form action="{{url('/deletecontacts/'.$datas['id'])}}" method="POST">
+                @csrf
+                 @method('DELETE')
+              <button type="submit" class="btn btn-outline-light">Yes</button>
+              </form>
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>
+            </div>
           </div>
-       @endforeach
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      @endforeach
+
+     
 @endsection

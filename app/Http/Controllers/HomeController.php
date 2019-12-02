@@ -44,11 +44,11 @@ class HomeController extends Controller
 
     public function viewadmin(){
         $data = DB::table('users')->get();
-        return view('cd-admin.adminuser.viewadmin',compact('data'));
+        return view('cd-admin.admin.viewadmin',compact('data'));
     }
 
     public function addadmin(){
-        return view('cd-admin.adminuser.add-admin');
+        return view('cd-admin.admin.addadmin');
     }
 
     public function storeadmin(){
@@ -72,10 +72,6 @@ class HomeController extends Controller
 
     public function deleteadmin($id){
          $test = DB::table('users')->where('id',$id)->get()->first();
-            if(file_exists('public/uploads/'.$test->image))
-            {
-                unlink('public/uploads/'.$test->image);
-            }
          DB::table('users')->where('id',$id)->delete();
          return redirect('/viewadmin')->with('error','User Deleted Successfully');
     }

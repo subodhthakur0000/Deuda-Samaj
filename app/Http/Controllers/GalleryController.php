@@ -22,7 +22,7 @@ class GalleryController extends Controller
     public function index()
     {
         $data = Gallery::orderby('created_at','desc')->get();
-        return view('cd-admin.Gallery.view-gallery',compact('data'));
+        return view('cd-admin.gallery.view-gallery',compact('data'));
     }
 
     /**
@@ -32,7 +32,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        return view('cd-admin.Gallery.create-gallery');
+        return view('cd-admin.gallery.create-gallery');
     }
 
     /**

@@ -1,90 +1,148 @@
-@extends('cd-admin.admin')
+@extends('cd-admin.admin-master')
 @section('content')
+
 <section class="content-header">
-  <h1>
-    Banner
-    <small>Details</small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="{{url('/dashboard')}}"><i class="fa fa-file-photo-o"></i> Dashboard</a></li>
-    <li class="active"><a href="{{url('/banner')}}">Banner</a></li>
-    <li class="active"><a href="{{url()->current()}}">Add-Banner</a></li>
-  </ol>
-</section>
-<section class="content">
-  <div class="row">
-  <div class="col-md-12">
-     <div class="box">
-      <div class="box-header">
-        <h3 class="box-title">Add Banner Details</h3>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Banner</h1>
       </div>
-      <div class="box-body">
-        
-      <form role="form" action="{{url('/storebanner')}}" method="POST" enctype="multipart/form-data" id="the-form">
-        @csrf
-        <div class="form-group">
-            <label for="exampleInputPassword1"> Banner Title</label>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('/banner')}}">Banner</a></li>
+          <li class="breadcrumb-item active"><a href="{{url()->current()}}">Add Banner</a></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="row"> 
+		<div class="col-12">
+     <!-- Input addon -->
+     <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Add Banner</h3>
+      </div>
+      <div class="card-body">
+        <form role="form" action="{{url('/storebanner')}}" method="POST" enctype="multipart/form-data" id="the-form">
+          @csrf
+
+         <div class="form-group">
+          <label >Banner Title</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-align-justify text-success"></i></span>
+            </div>
             <input type="text" class="form-control" id="" placeholder="Enter Banner Title" name="title" value="{{old('title')}}" required>
             <div class="text text-justify">{{$errors->first('title')}}</div>
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputPassword1"> Banner Description</label>
+        </div>
+        <div class="form-group">
+          <label >Banner Description</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-align-justify text-success"></i></span>
+            </div>
             <input type="text" class="form-control" id="" placeholder="Enter Banner Description" name="description" value="{{old('description')}}" required>
             <div class="text text-justify">{{$errors->first('description')}}</div>
           </div>
-
-          <div class="form-group">
-            <label for="exampleInputPassword1">Banner Image Upload</label>
-            <input type="file" id="exampleInputFile" name="image" value="{{old('image')}}"required>
+        </div>
+                  <div class="form-group">
+                    <label >Banner Image Upload</label>
+                    <div class="input-group">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id=""><i class="fas fa-cloud-upload-alt text-warning" aria-hidden="true"></i></span>
+                      </div>
+                    <input type="file" id="exampleInputFile" name="image" value="{{old('image')}}"required>
                   <div class="text text-justify">{{$errors->first('image')}}</div>
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputPassword1"> Banner Image Description</label>
-            <input type="text" class="form-control" id="" placeholder="Enter Banner Image Description" name="imagedescription" value="{{old('imagedescription')}}"required>
+                  </div>
+                  </div>
+                  <div class="form-group">
+                      <label >Banner Image Description</label>
+                      <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-align-justify text-success"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="" placeholder="Enter Banner Image Description" name="imagedescription" value="{{old('imagedescription')}}"required>
                   <div class="text text-justify">{{$errors->first('imagedescription')}}</div>
-          </div>
+                          </div>
+                        </div>
 
-          <div class="form-group">
-            <label for="exampleInputPassword1"> Facebook Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Facebook Url" name="facebook" value="{{old('facebook')}}">
+                  <div class="form-group">
+                  <label >Facebook Url</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-facebook-f text-primary"></i></span>
+                  </div>
+                  <input type="url" class="form-control" id="" placeholder="Enter Facebook Url" name="facebook" value="{{old('facebook')}}">
                   <div class="text text-justify text-primary">{{$errors->first('facebook')}}</div>
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputPassword1"> Twitter Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Twitter Url" name="twitter" value="{{old('twitter')}}" >
+                </div>
+                </div>
+                <div class="form-group">
+                  <label >Twitter Url</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-twitter text-primary"></i></span>
+                  </div>
+                  <input type="url" class="form-control" id="" placeholder="Enter Twitter Url" name="twitter" value="{{old('twitter')}}" >
                   <div class="text text-justify">{{$errors->first('twitter')}}</div>
-          </div>
-
-           <div class="form-group">
-            <label for="exampleInputPassword1"> Linkedin Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Linkedin Url" name="linkedin" value="{{old('linkedin')}}">
+                </div>
+                </div>
+                <div class="form-group">
+                  <label >Linkedin Url</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-linkedin-in text-primary"></i></span>
+                  </div>
+                  <input type="url" class="form-control" id="" placeholder="Enter Linkedin Url" name="linkedin" value="{{old('linkedin')}}">
                   <div class="text text-justify">{{$errors->first('linkedin')}}</div>
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputPassword1"> Youtube Url</label>
-            <input type="url" class="form-control" id="" placeholder="Enter Youtube Url" name="youtube" value="{{old('youtube')}}">
+                </div>
+                </div>
+                <div class="form-group">
+                  <label >Youtube Url</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-youtube text-danger"></i></span>
+                  </div>
+                  <input type="url" class="form-control" id="" placeholder="Enter Youtube Url" name="youtube" value="{{old('youtube')}}">
                   <div class="text text-justify">{{$errors->first('youtube')}}</div>
+                </div>
+                </div>
+
+                <div class="form-group">
+          <label >Status</label>
+          <div class="form-group clearfix">
+                      <div class="icheck-success d-inline">
+                        <input type="radio" name="status"  id="radioSuccess1" value="Active">
+                        <label for="radioSuccess1">Active</label>
+                      </div>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <div class="icheck-success d-inline">
+                        <input type="radio" name="status" id="radioSuccess2" value="Inactive">
+                        <label for="radioSuccess2">Inactive</label>
+                      </div>
+                      <div class="text text-danger">{{ $errors->first('status') }}</div>
+          </div>
           </div>
 
-          <div class="form-group">
-            <label for="exampleInputPassword1">Status</label><br>
-            <input type="radio" name="status" checked value="Active" class="minimal-red"> Active &nbsp; &nbsp; &nbsp; &nbsp;
-            <input type="radio" name="status" value="Inactive" class="minimal-red"> Inactive
-          </div>
-          <div class="modal-footer col-md-6">
-            <button type="submit" class="btn btn-info pull-left">Add Banner</button>  
-          </div>
+        <button type="submit" class="btn btn-info" style="float: left">Add Banner</button> 
       </form>
-      <div class="modal-footer col-md-6">
-      <a href="{{URL()->previous()}}"><button type="button" class="btn btn-default ">Cancel</button></a>
-      </div>
-      </div>
+      <a href="{{url()->previous()}}"><button type="button" class="btn btn-default" style="float: right">Cancel</button></a>
+
+
     </div>
+    <!-- /.card-body -->
   </div>
+  <!-- /.card -->
 </div>
-</section> 
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</section>
+<!-- /.content -->
+
+
 @endsection

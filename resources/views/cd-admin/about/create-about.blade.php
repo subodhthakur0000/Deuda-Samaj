@@ -1,70 +1,112 @@
-@extends('cd-admin.admin')
+@extends('cd-admin.admin-master')
 @section('content')
-<section class="content">
-  <div class="row">
-    <section class="content-header">
-      <h1>
-        About
-        <small>Details</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i> Dashboard</a></li>
-        <li class="active"><a href="{{url('/abouts')}}">About</a></li>
-        <li class="active"><a href="{{url()->current()}}">Create About</a></li>
-      </ol>
-    </section><br>
-        <div class="col-md-12">
-         <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Create About</h3>
-          </div>
-          <form action="{{url('/storeabout')}}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <form role="form">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">About Title</label>
-                  <input type="text" class="form-control ui-datepicker" id="exampleInputEmail1" name="title" placeholder="Enter About Title " value="{{old('title')}}" required >
-                  <div class="text text-danger">{{ $errors->first('title') }}</div>
-                </div>
-                 <div class="form-group">
-                  <label for="exampleInputEmail1">About Summary</label><br>
-                  <textarea placeholder="Enter About Summary " name="summary" rows="4" cols="174" required>{{old('summary')}}</textarea>
-                  <div class="text text-danger">{{ $errors->first('summary') }}</div>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">About Description</label>
-                  <textarea id="summernote" placeholder="Enter About Description" name="description" required >{{old('description')}}</textarea>
-                  <div class="text text-danger">{{ $errors->first('description') }}</div>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">About Image Upload</label>
-                  <input type="file" id="exampleInputFile" name="image" value="{{old('image')}}" required>
-                  <div class="text text-danger">{{ $errors->first('image') }}</div>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">About Image Description</label>
-                  <input type="text" class="form-control" id="" placeholder="Enter Alternative Image Description" name="imagedescription" value="{{old('imagedescription')}}" required>
-                  <div class="text text-danger">{{ $errors->first('imagedescription') }}</div>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Status</label><br>
-                  <input type="radio" name="status"  value="Active" class="minimal-red"> Active &nbsp; &nbsp; &nbsp; &nbsp;
-                  <input type="radio" name="status" value="Inactive" class="minimal-red"> Inactive
-                </div>
-                <div>
-                   <div class="modal-footer col-md-6">
-                    <button type="submit" class="btn btn-info pull-left">Create About</button>  
-                  </div>
-              </form>
-              <div class="modal-footer col-md-6">
-              <a href="{{URL()->previous()}}"><button type="button" class="btn btn-default ">Cancel</button></a>
-              </div>
-            </div>
 
-          </div>
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>About</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="{{url('/abouts')}}">About</a></li>
+          <li class="breadcrumb-item active"><a href="{{url()->current()}}">Add About</a></li>
+        </ol>
+      </div>
     </div>
-  </section> 
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="row"> 
+		<div class="col-12">
+     <!-- Input addon -->
+     <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Add About</h3>
+      </div>
+      <div class="card-body">
+        <form role="form" action="{{url('/storeabout')}}" method="POST" enctype="multipart/form-data" id="the-form">
+          @csrf
+
+         <div class="form-group">
+          <label >About Title</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-align-justify text-success"></i></span>
+            </div>
+            <input type="text" class="form-control" id="" placeholder="Enter About Title" name="title" value="{{old('title')}}" required>
+            <div class="text text-justify">{{$errors->first('title')}}</div>
+        </div>
+        <div class="form-group">
+          <label >About Summary</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-align-justify text-success"></i></span>
+            
+            <textarea placeholder="Enter About Summary " name="summary" rows="4" cols="174" required>{{old('summary')}}</textarea>
+                  <div class="text text-danger">{{ $errors->first('summary') }}</div>
+                  </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label >About Description</label>
+          <textarea class="textarea" name="description" placeholder="Place some text here"
+          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{old('description')}}</textarea>
+          <div class="text text-danger">{{ $errors->first('description') }}</div>
+                  <div class="form-group">
+                    <label >About Image Upload</label>
+                    <div class="input-group">
+                      <div class="input-group-append">
+                        <span class="input-group-text" id=""><i class="fas fa-cloud-upload-alt text-warning" aria-hidden="true"></i></span>
+                      </div>
+                    <input type="file" id="exampleInputFile" name="image" value="{{old('image')}}"required>
+                  <div class="text text-justify">{{$errors->first('image')}}</div>
+                  </div>
+                  </div>
+                  <div class="form-group">
+                      <label >About Image Description</label>
+                      <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-align-justify text-success"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="" placeholder="Enter About Image Description" name="imagedescription" value="{{old('imagedescription')}}"required>
+                  <div class="text text-justify">{{$errors->first('imagedescription')}}</div>
+                          </div>
+                        </div>
+                <div class="form-group">
+          <label >Status</label>
+          <div class="form-group clearfix">
+                      <div class="icheck-success d-inline">
+                        <input type="radio" name="status"  id="radioSuccess1" value="Active">
+                        <label for="radioSuccess1">Active</label>
+                      </div>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <div class="icheck-success d-inline">
+                        <input type="radio" name="status" id="radioSuccess2" value="Inactive">
+                        <label for="radioSuccess2">Inactive</label>
+                      </div>
+                      <div class="text text-danger">{{ $errors->first('status') }}</div>
+          </div>
+          </div>
+
+        <button type="submit" class="btn btn-info" style="float: left">Add About</button> 
+      </form>
+      <a href="{{url()->previous()}}"><button type="button" class="btn btn-default" style="float: right">Cancel</button></a>
 
 
-  @endsection
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</section>
+<!-- /.content -->
+
+
+@endsection
